@@ -1,6 +1,6 @@
 {
-  "name": "Weather",
-  "short_name": "Weather",
+  "name": "Tetris",
+  "short_name": "Tetris",
   "icons": [{
     "src": "img/icons/icon-128x128.png",
       "sizes": "128x128",
