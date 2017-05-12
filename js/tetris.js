@@ -9,6 +9,8 @@ function Stage(){
 	var ctx = canvas.getContext('2d');
 	container.appendChild(canvas);
 
+	var blocks = [];
+
 	function init(){
 		document.addEventListener('touchstart',touchStart,false);
 		document.addEventListener('touchmove',touchMove,false);
@@ -18,6 +20,12 @@ function Stage(){
 		onWindowResize();
 
 		loop();
+
+		/*var block = new Block('img/block.png',100,100,40,40);
+		blocks.push(block);
+		block = new Block('img/block.png',200,100);
+		blocks.push(block);*/
+
 	}
 
 	function touchStart(ev){
@@ -38,6 +46,12 @@ function Stage(){
 	function loop(){
 		requestAnimationFrame(loop);
 
+
+		blocks.forEach(function(o,i,a){
+			o.y++;
+		});
+
+
 		render();
 	}
 
@@ -49,6 +63,10 @@ function Stage(){
 	function render(){
 		ctx.clearRect(0,0,canvas.width,canvas.height);
 
+		blocks.forEach(function(o,i,a){
+			ctx.drawImage(o.img,o.x,o.y,o.width,o.height);
+		});
+
 		touches.forEach(function(o,i,a){
 			console.log(o);
 
@@ -59,6 +77,28 @@ function Stage(){
 	}
 
 	init();
+}
+
+var images = {};
+
+function Block(imgURL,x,y,width,height){
+	var _this = this;
+	var img = images[imgURL];
+	if(!img){
+		 img = new Image();
+		 img.onload = function(ev){
+		 	_this.width = width || ev.target.width;
+		 	_this.height = height || ev.target.height;
+		 }
+		 img.src = imgURL;
+	}
+	else {
+	 	_this.width = width || img.width;
+	 	_this.height = height || img.height;
+	}
+	_this.x = x;
+	_this.y = y;
+	_this.img = img;
 }
 
 window[document.currentScript.getAttribute('name')||'tetris'] = new Stage();

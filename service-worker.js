@@ -18,7 +18,8 @@ var filesToCache = [
   '/',
   '/index.html',
   '/js/tetris.js',
-  '/css/tetris.css'
+  '/css/tetris.css',
+  '/img/block.png',
 ];
 
 self.addEventListener('install', function(e) {
